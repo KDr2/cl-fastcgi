@@ -17,20 +17,20 @@ CL-FastCGI is a generic version of SB-FastCGI, targeting
 to running on mostly Common Lisp implementation.
 
 
-cl-fastcgi's API is exactly the same as SB-FastCGI's.
+CL-FastCGI's API is exactly the same as SB-FastCGI's.
 
 Differences between SB-FastCGI
 -----------------------------------------------------
 
 **SB-FastCGI**
- - Support SBCL only.
+ - Supports SBCL only.
  - No third-party packages dependences.
- - Support unix-domain-socket/inet-socket/stdin
+ - Supports unix-domain-socket/inet-socket/stdin
  - Multithreaded fastcgi server.
 
 **CL-FastCGI**
  - Targeting to running on all Common Lisp implementation. And now
-   supports:
+   it is tested on:
 
    - SBCL
    - CMUCL
