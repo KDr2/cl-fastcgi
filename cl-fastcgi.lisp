@@ -48,7 +48,9 @@
     (sb-bsd-sockets:socket-file-descriptor nsock)
     #+cmu
     nsock
+    #+ccl
+    (ccl:socket-os-fd nsock)
     #+clisp
     (SOCKET:STREAM-HANDLES nsock)
-    #-(or sbcl cmu clisp)
+    #-(or sbcl cmu clisp ccl)
     (error "not supported!")))
