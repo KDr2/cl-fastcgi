@@ -1,0 +1,13 @@
+;;;
+;;; cl-fastcgi : http://kdr2.net/cl-fastcgi.html
+;;;
+;;; Author : KDr2 <killy.draw@gmail.com>  http://kdr2.net
+;;;
+;;; License : BSD License
+;;;
+
+
+Curren-Version : 0.9
+Docs : http://kdr2.net/cl-fastcgi.html
+Examples : test.lisp
+
