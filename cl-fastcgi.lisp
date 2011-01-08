@@ -46,11 +46,13 @@
   (let ((nsock (usocket:socket usock)))
     #+sbcl
     (sb-bsd-sockets:socket-file-descriptor nsock)
-    #+cmu
+    #+(or cmu lispworks)
     nsock
+    #+(acl-socket)
+    (socket-os-fd nsock)
     #+ccl
     (ccl:socket-os-fd nsock)
     #+clisp
-    (SOCKET:STREAM-HANDLES nsock)
-    #-(or sbcl cmu clisp ccl)
+    (socket:stream-handles nsock)
+    #-(or sbcl cmu clisp ccl lispworks acl-socket)
     (error "not supported!")))

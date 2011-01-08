@@ -36,6 +36,7 @@ Differences between SB-FastCGI
    - CMUCL
    - CLISP
    - Clozure CL
+   - LispWorks
 
  - Depends on **cffi** and **usocket**
  - Unix-domain-socket is unsupported.

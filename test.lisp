@@ -32,7 +32,8 @@ Hello, I am a fcgi-program using Common-Lisp
 (defun wsgi-app (env start-response)
   (funcall start-response "200 OK" '(("X-author" . "Who?")
                                      ("Content-Type" . "text/html")))
-  (list "ENV (show in alist format): <br>" env))
+  (list "ENV (show in alist format): <br>" env
+        "<br>LISP FEATURES (show in list format): <br>" *features*))
 
 ;;; C2. run app above on 0.0.0.0:9000 (by default)
 (defun run-app-1 ()
