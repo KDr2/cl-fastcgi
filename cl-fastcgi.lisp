@@ -44,15 +44,15 @@
 
 (defun usocket-to-fd (usock)
   (let ((nsock (usocket:socket usock)))
-    #+sbcl
+    #+(or sbcl ecl)
     (sb-bsd-sockets:socket-file-descriptor nsock)
     #+(or cmu lispworks)
     nsock
-    #+(acl-socket)
-    (socket-os-fd nsock)
+    ;;#+(acl-socket)
+    ;;(socket-os-fd nsock)
     #+ccl
     (ccl:socket-os-fd nsock)
     #+clisp
     (socket:stream-handles nsock)
-    #-(or sbcl cmu clisp ccl lispworks acl-socket)
+    #-(or sbcl cmu clisp ccl lispworks ecl)
     (error "not supported!")))
