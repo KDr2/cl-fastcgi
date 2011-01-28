@@ -9,6 +9,8 @@
 
 (in-package :cl-fastcgi)
 
+(defvar *read-buffer-size* 1024)
+
 (defcstruct fcgx-request
     "FCGX_Request"
   (request-id :int)
@@ -47,6 +49,37 @@
       (t (setf ostr (foreign-slot-value req 'fcgx-request 'out))))
     (foreign-funcall "FCGX_PutS" :string content :pointer ostr :int)))
 
+
+;;TODO : make these bufffers thread-local?
+(defun fcgx-read (req)
+  (let* ((buf (foreign-alloc :char :count *read-buffer-size*))
+         (istr (foreign-slot-value req 'fcgx-request 'in))
+         (content
+          (make-array *read-buffer-size*
+                      :fill-pointer 0
+                      :element-type '(unsigned-byte 8)))
+         (readn
+          (foreign-funcall "FCGX_GetStr" :pointer buf :int *read-buffer-size*
+                           :pointer istr :int)))
+    ;;copy data
+    (loop for i from 0 upto (1- readn) do
+         (vector-push (mem-aref buf :unsigned-char i) content))
+    (foreign-free buf)
+    (values content readn)))
+
+(defun fcgx-read-all (req)
+  (let ((contents nil)
+        (length 0)
+        (last-read *read-buffer-size*))
+    (do ()
+        ((< last-read *read-buffer-size*))
+      (multiple-value-bind (c l) (fcgx-read req)
+        (push c contents)
+        (setf length (+ length l))
+        (setf last-read l)))
+    (setf contents (nreverse contents))
+    (push 'vector contents)
+    (values contents length)))
 
 (defun fcgx-getparam (req key)
   (let ((env (foreign-slot-value req 'fcgx-request 'envp)))

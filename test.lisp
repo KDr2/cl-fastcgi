@@ -19,12 +19,19 @@
 
 Hello, I am a fcgi-program using Common-Lisp
 ~%~A~%"
-                   (cl-fastcgi:fcgx-getenv req))))
-    (cl-fastcgi:fcgx-puts req c)))
+                   (cl-fastcgi:fcgx-getenv req)))
+        (d (cl-fastcgi:fcgx-read req))) ;; get post body
+    (cl-fastcgi:fcgx-puts req c)
+    (cl-fastcgi:fcgx-puts req (format nil "~A" d))))
 
 ;;; B2. run the simple app above
 (defun run-app-0 ()
   (cl-fastcgi:simple-server #'simple-app))
+
+(defun run-app-0.5 ()
+  (cl-fastcgi:socket-server #'simple-app
+                                     :inet-addr "0.0.0.0"
+                                     :port 9000))
 #+nil
 (run-app-0)
 
@@ -32,8 +39,10 @@ Hello, I am a fcgi-program using Common-Lisp
 (defun wsgi-app (env start-response)
   (funcall start-response "200 OK" '(("X-author" . "Who?")
                                      ("Content-Type" . "text/html")))
-  (list "ENV (show in alist format): <br>" env
-        "<br>LISP FEATURES (show in list format): <br>" *features*))
+  (let ((post (funcall (cdr (assoc :POST-READER env))))) ;; read post body
+    (list "ENV (show in alist format): <br>" env
+          "<br>LISP FEATURES (show in list format): <br>" *features*
+          "<br>POST BODY(read once):<br>" post)))
 
 ;;; C2. run app above on 0.0.0.0:9000 (by default)
 (defun run-app-1 ()
