@@ -11,6 +11,12 @@
  *
  * $Id: fcgiapp.h,v 1.12 2001/11/21 21:10:11 robs Exp $
  */
+#ifdef __APPLE__
+#include <crt_externs.h>
+#define environ (*_NSGetEnviron())
+#else
+  extern char **environ;
+#endif
 
 #ifndef _FCGIAPP_H
 #define _FCGIAPP_H
