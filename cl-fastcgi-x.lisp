@@ -47,7 +47,17 @@
       ((eql stream :err)
        (setf ostr (foreign-slot-value req 'fcgx-request 'err)))
       (t (setf ostr (foreign-slot-value req 'fcgx-request 'out))))
-    (foreign-funcall "FCGX_PutS" :string content :pointer ostr :int)))
+    (macrolet ((cputs (type pointer)
+                  `(foreign-funcall "FCGX_PutStr"
+                                    ,type ,pointer
+                                    :int (length content)
+                                    :pointer ostr
+                                    :int)))
+      (etypecase content
+        ((vector (unsigned-byte 8)) (with-pointer-to-vector-data (p content)
+                                      (cputs :pointer p)))
+        ;; Let foreign-funcall try to convert any non-vector to a :string
+        (T (cputs :string content))))))
 
 
 ;;TODO : make these bufffers thread-local?
