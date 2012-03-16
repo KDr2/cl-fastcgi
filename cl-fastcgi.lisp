@@ -15,7 +15,8 @@
       "libfcgi already loaded!"
       (progn
         (define-foreign-library libfcgi
-            (:unix (:or path "libfcgi.so"))
+          (:darwin (:or path "libfcgi.dylib"))
+          (:unix (:or path "libfcgi.so"))
           (:t (:default "libfcgi")))
         (use-foreign-library libfcgi)
         (setf *libfcgi-loaded* t))))
