@@ -14,6 +14,7 @@
            #:fcgx-init
            #:fcgx-init-request
            #:fcgx-accept
+           #:fcgx-flush
            #:fcgx-finish
            #:fcgx-puts
            #:fcgx-read

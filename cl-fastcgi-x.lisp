@@ -38,6 +38,11 @@
 (defun fcgx-accept (req)
   (foreign-funcall "FCGX_Accept_r" :pointer req :int))
 
+(defun fcgx-flush (req)
+  (foreign-funcall "FCGX_FFlush"
+                   :pointer (foreign-slot-value req 'fcgx-request 'out)
+                   :int))
+
 (defun fcgx-finish (req)
   (foreign-funcall "FCGX_Finish_r" :pointer req :int))
 
