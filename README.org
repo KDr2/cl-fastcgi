@@ -1,0 +1,10 @@
+#+TITLE: CL-FastCGI
+# -*- mode: org; mode: auto-fill -*-
+
+* Introduction
+  CL-FastCGI is a generic version of SB-FastCGI, targeting
+  to run on mostly Common Lisp implementation.
+
+  - Curren-Version : 0.2
+  - Docs : http://kdr2.com/project/cl-fastcgi.html
+  - Examples : test.lisp
