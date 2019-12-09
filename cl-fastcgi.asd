@@ -1,14 +1,14 @@
 ;;;
-;;; cl-fastcgi : http://kdr2.net/cl-fastcgi.html
+;;; cl-fastcgi : https://kdr2.com/project/cl-fastcgi.html
 ;;;
-;;; Author : KDr2 <killy.draw@gmail.com>  http://kdr2.net
+;;; Author : KDr2 <zhuo.dev@gmail.com>  https://kdr2.com
 ;;;
 ;;; License : BSD License
 ;;;
 
 (asdf:defsystem #:cl-fastcgi
   :name "cl-fastcgi"
-  :author "KDr2 <killy.draw@gmail.com>"
+  :author "KDr2 <zhuo.dev@gmail.com>"
   :licence "BSD License"
   :description "FastCGI wrapper for Common Lisp"
   :depends-on (#:usocket
