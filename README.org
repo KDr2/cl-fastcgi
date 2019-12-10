@@ -6,5 +6,5 @@
   to run on mostly Common Lisp implementation.
 
   - Curren-Version : 0.2
-  - Docs : http://kdr2.com/project/cl-fastcgi.html
+  - Docs : https://kdr2.com/project/cl-fastcgi.html
   - Examples : test.lisp
