@@ -14,7 +14,9 @@
   :depends-on (#:usocket
                #:cffi
                #+sbcl
-               #:sb-bsd-sockets)
+               #:sb-bsd-sockets
+               #-(or sbcl ccl clisp) 
+               #:babel)
   :serial t
   :components ((:file "package")
                (:file "cl-fastcgi")
