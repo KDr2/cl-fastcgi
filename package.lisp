@@ -8,7 +8,8 @@
 
 
 (defpackage #:cl-fastcgi
-  (:use :cl :cffi)
+  (:use :cl :cffi
+        #-(or sbcl ccl clisp) :babel)
   (:export #:load-libfcgi
            ;;internal
            #:fcgx-init

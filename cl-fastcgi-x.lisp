@@ -55,7 +55,10 @@
     (macrolet ((cputs (type pointer)
                   `(foreign-funcall "FCGX_PutStr"
                                     ,type ,pointer
-                                    :int (length content)
+                                    :int #+sbcl (length (sb-ext:string-to-octets content))
+                                         #+ccl (ccl:string-size-in-octets content)
+                                         #+clisp (length (convert-string-to-bytes content))
+                                         #-(or sbcl ccl clisp) (babel:string-size-in-octets content)
                                     :pointer ostr
                                     :int)))
       (etypecase content
