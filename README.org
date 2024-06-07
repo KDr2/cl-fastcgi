@@ -2,9 +2,36 @@
 # -*- mode: org; mode: auto-fill -*-
 
 * Introduction
-  CL-FastCGI is a generic version of SB-FastCGI, targeting
-  to run on mostly Common Lisp implementation.
 
-  - Curren-Version : 0.2
-  - Docs : https://kdr2.com/project/cl-fastcgi.html
-  - Examples : test.lisp
+CL-FastCGI is a generic version of [[https://github.com/KDr2/sb-fastcgi][SB-FastCGI]], targeting to run on
+mostly Common Lisp implementation.
+
+CL-FastCGI's API is exactly the same as [[https://github.com/KDr2/sb-fastcgi][SB-FastCGI]]'s.
+
+* Differences between  [[https://github.com/KDr2/sb-fastcgi][SB-FastCGI]] and CL-FastCGI.
+
+** SB-FastCGI
+- Supports SBCL only.
+- No third-party packages dependences.
+- Supports unix-domain-socket/inet-socket/stdin
+- Multithreaded fastcgi server.
+
+** CL-FastCGI
+- Targeting to running on all Common Lisp implementation. And now
+  supports:
+  - SBCL
+  - CMUCL
+  - CLISP
+  - Clozure CL
+  - LispWorks
+  - ECL
+- Depends on *cffi* and *usocket*
+- Unix-domain-socket is unsupported.
+- Multithreaded fastcgi server is unsupported(You can run it in
+  multi-processes mode).
+
+* Which to Use?
+
+If you use SBCL, I recommend you select SB-FastCGI, and package
+SB-FastCGI has a nickname =cl-fastcgi=, so you can change SB-FastCGI
+to cl-fastcgi or change back easily, without code modifications.
